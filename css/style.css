@@ -1,0 +1,520 @@
+/**
+  Нормализация блочной модели
+ */
+ *,
+ *::before,
+ *::after {
+   box-sizing: border-box;
+ }
+ 
+ /**
+   Убираем внутренние отступы слева тегам списков,
+   у которых есть атрибут class
+  */
+ :where(ul, ol):where([class]) {
+   padding-left: 0;
+ }
+ 
+ /**
+   Убираем внешние отступы body и двум другим тегам,
+   у которых есть атрибут class
+  */
+ body,
+ :where(blockquote, figure):where([class]) {
+   margin: 0;
+ }
+ 
+ /**
+   Убираем внешние отступы вертикали нужным тегам,
+   у которых есть атрибут class
+  */
+ :where(
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6,
+   p,
+   ul,
+   ol,
+   dl
+ ):where([class]) {
+   margin-block: 0;
+ }
+ 
+ :where(dd[class]) {
+   margin-left: 0;
+ }
+ 
+ :where(fieldset[class]) {
+   margin-left: 0;
+   padding: 0;
+   border: none;
+ }
+ 
+ /**
+   Убираем стандартный маркер маркированному списку,
+   у которого есть атрибут class
+  */
+ :where(ul[class]) {
+   list-style: none;
+ }
+ 
+ /**
+   Обнуляем вертикальные внешние отступы параграфа,
+   объявляем локальную переменную для внешнего отступа вниз,
+   чтобы избежать взаимодействие с более сложным селектором
+  */
+ p {
+   --paragraphMarginBottom: 24px;
+ 
+   margin-block: 0;
+ }
+ 
+ /**
+   Внешний отступ вниз для параграфа без атрибута class,
+   который расположен не последним среди своих соседних элементов
+  */
+ p:where(:not([class]):not(:last-child)) {
+   margin-bottom: var(--paragraphMarginBottom);
+ }
+ 
+ 
+ /**
+   Упрощаем работу с изображениями
+  */
+ img {
+   display: block;
+   max-width: 100%;
+ }
+ 
+ /**
+   Наследуем свойства шрифт для полей ввода
+  */
+ input,
+ textarea,
+ select,
+ button {
+   font: inherit;
+ }
+ 
+ html {
+   /**
+     Пригодится в большинстве ситуаций
+     (когда, например, нужно будет "прижать" футер к низу сайта)
+    */
+   height: 100%;
+ }
+ 
+ /**
+   Плавный скролл
+  */
+ html,
+ :has(:target) {
+   scroll-behavior: smooth;
+ }
+ 
+ body {
+   /**
+     Пригодится в большинстве ситуаций
+     (когда, например, нужно будет "прижать" футер к низу сайта)
+    */
+   min-height: 100%;
+   /**
+     Унифицированный интерлиньяж
+    */
+   line-height: 1.5;
+ }
+ 
+ /**
+   Приводим к единому цвету svg-элементы
+  */
+ svg *[fill] { fill: currentColor }
+ svg *[stroke] { stroke: currentColor }
+ 
+ /**
+   Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+  */
+ svg * {
+   transition-property: fill, stroke;
+ }
+ 
+ /**
+   Удаляем все анимации и переходы для людей,
+   которые предпочитают их не использовать
+  */
+ @media (prefers-reduced-motion: reduce) {
+   * {
+     animation-duration: 0.01ms !important;
+     animation-iteration-count: 1 !important;
+     transition-duration: 0.01ms !important;
+     scroll-behavior: auto !important;
+   }
+ }
+
+ @font-face {
+  font-family: "BebansNeue";
+  src: url("/fonts/BebasNeue-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+ }
+
+ @font-face {
+  font-family: "OpenSans";
+  src: url("/fonts/OpenSans.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+ }
+
+ .custom-font-header {
+  font-family: "BebansNeue";
+ }
+
+ .custom-font {
+  font-family: "OpenSans";
+ }
+
+ .wrapper {
+  margin: 0 auto;
+  max-width: 1269px;
+  height: auto;
+ }
+
+ .container {
+  height: 678px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  
+ }
+
+ .background {
+  position: absolute;
+  z-index: -1;
+ }
+
+ .background img {
+  min-height: 678px;
+  width: auto;
+ }
+
+ .logo {
+  margin-top: 40px;
+ }
+
+ .head {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  color: white;
+ }
+
+ .head p {
+  font-size: 16px;
+  color: white;
+ }
+ 
+ h1 {
+  margin-block: 0;
+  font-size: 60px;
+  letter-spacing: 10px;
+ }
+
+ h2 {
+  margin-block: 0;
+  font-size: 18px;
+  color: #48555B;
+ }
+
+ h3 {
+  margin-block: 0;
+  font-size: 16px;
+  color: #48555B;
+  margin: 15px 0px 15px 0px;
+ }
+
+ p {
+  font-size: 13px;
+  color: #48555B;
+ }
+
+ .scrolldown {
+  color: white;
+ }
+
+ .scrolldown p {
+  font-size: 11px;
+  color: white;
+ }
+ 
+ .nav-bar {
+  display: flex;
+  width: 1269px;
+  height: 65px;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid  #E6E6E6;
+ }
+
+ .logo-menu {
+  width: 45vw;
+  margin-left: 10vw;
+ }
+
+ .menu {
+  display: flex;
+  justify-content: center;
+ }
+ 
+ .tex-div {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+ }
+
+ li {
+  margin: 45px 15px;
+ }
+
+ ul li:last-child {
+  margin: 45px 75px 45px 15px;
+ }
+
+ a {
+  text-decoration: none;
+  color: #48555B;
+  font-size: 12px;
+ }
+
+ .active {
+  color: #00A4E5;
+ }
+
+ .about {
+  display: flex;
+  flex-direction: column;
+  max-width: 980px;
+  margin-left: 178px;
+  margin-bottom: 80px;
+ }
+
+ .our-story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 5px;
+ }
+
+ .all-content-about {
+  display: flex;
+  height: auto;
+ }
+
+ .content-about {
+  width: 406px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .plans {
+  display: flex;
+  width: 50vw;
+  height: 222px;
+  justify-content: flex-end;
+  position: relative;
+ }
+
+ .structure {
+  display: flex;
+ }
+
+ .structure img {
+  margin-left: 25px;
+  z-index: -1;
+ }
+
+ .structure h3 {
+  position: absolute;
+  margin: 30px;
+  color: white;
+ }
+
+ .structure h3:last-child {
+  margin-top: 50px;
+ }
+
+ .content-about p:first-child {
+  font-size: 20px;
+ }
+
+ .services {
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 178px;
+  margin-bottom: 80px;
+ }
+
+ .services-tex {
+  display: flex;
+  margin-bottom: 50px;
+ }
+
+ .images-tex {
+  display: flex;
+ }
+
+ .services-tex header {
+  width: 30vw;
+ }
+
+ .services-tex p {
+  width: 35vw;
+ }
+
+ .services-tex a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00A4E5;
+  width: 150px;
+  height: 40px;
+  color: white;
+ }
+
+ .images-tex article {
+  border: 1px solid #E6E6E6;
+  width: 33.33vw;
+  margin: 15px;
+  padding: 15px 25px 15px 25px;
+ }
+
+ .get-in-touch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 439px;
+ }
+
+ .get-in-touch img {
+  position: absolute;
+  z-index: -1;
+  min-height: 440px;
+ }
+
+ .get-in-touch a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 40px;
+  background-color: #00A4E5;
+  color: white;
+ }
+
+ .get-in-touch header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 80px 5px 40px 5px;
+ }
+
+ .get-in-touch h2 {
+  font-size: 30px;
+ }
+
+ .newsletter {
+  height: 100px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .newsletter p {
+  color: white;
+  font-size: 22px;
+  margin-block: 0;
+  margin-right: 80px;
+ }
+
+ button {
+  width: 150px;
+  height: 40px;
+  border-block: 0;
+  background-color: #00A4E5;
+  color: white;
+  font-size: 13px;
+ }
+
+ input {
+  height: 40px;
+  width: 250px;
+  padding-left: 10px;
+  border-block: 0;
+ }
+
+ footer {
+  background-color: black;
+ }
+
+ .footer {
+  display: flex;
+  max-width: 980px;
+  margin-left: 178px;
+ }
+
+ .footer p {
+  color: white;
+ }
+
+ .footer div {
+  width: 16vw;
+  margin: 40px 0px 40px 0px;
+ }
+
+ .footer div:first-child {
+  width: 20vw;
+  margin: 40px 25px 40px 0px;
+ }
+
+ .footer div p {
+  font-size: 11px;
+  margin-block: 0;
+  margin-bottom: 10px;
+ }
+
+ .copirate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+ }
+
+ .footer div img {
+  margin: 15px 0px 15px 0px;
+ }
+
+ .social-buttons {
+  color: white;
+  margin-left: 20px;
+ }
+
+ .copirate p {
+  font-size: 11px;
+  color: white;
+ }
+
+ 
